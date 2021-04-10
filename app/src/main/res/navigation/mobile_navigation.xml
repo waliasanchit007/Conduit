@@ -22,4 +22,9 @@
         android:name="com.realworld.io.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/nav_global_feed"
+        android:name="com.realworld.io.ui.feed.GlobalFeedFragment"
+        android:label="@string/menu_global_feed"
+        tools:layout="@layout/fragment_global_feed"/>
 </navigation>

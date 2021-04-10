@@ -1,4 +1,4 @@
-package com.realworld.api.models
+package com.realworld.api.models.objects
 
 
 import com.squareup.moshi.Json
@@ -11,7 +11,7 @@ data class Profile(
     @Json(name = "following")
     val following: Boolean,
     @Json(name = "image")
-    val image: String,
+    val image: String?,
     @Json(name = "username")
     val username: String
 )

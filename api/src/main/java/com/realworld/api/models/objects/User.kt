@@ -1,4 +1,4 @@
-package com.realworld.api.models
+package com.realworld.api.models.objects
 
 
 import com.squareup.moshi.Json
@@ -7,11 +7,11 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class User(
     @Json(name = "bio")
-    val bio: String,
+    val bio: String?,
     @Json(name = "email")
     val email: String,
     @Json(name = "image")
-    val image: Any?,
+    val image: String?,
     @Json(name = "token")
     val token: String,
     @Json(name = "username")

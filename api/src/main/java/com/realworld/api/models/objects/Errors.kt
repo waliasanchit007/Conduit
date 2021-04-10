@@ -1,4 +1,4 @@
-package com.realworld.api.models
+package com.realworld.api.models.objects
 
 
 import com.squareup.moshi.Json
