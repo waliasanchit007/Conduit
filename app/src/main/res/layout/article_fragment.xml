@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.realworld.io.ui.article.ArticleViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:id="@+id/tv_article_heading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:text="@{viewModel.articleToShown.title}"
+                    tools:text="This is article heading" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/article_iv_author_image"
+                        android:layout_width="61dp"
+                        android:layout_height="match_parent"
+                        tools:srcCompat="@tools:sample/avatars"
+                        android:contentDescription="image holder for author's image"
+                        imageUrl="@{viewModel.articleToShown.author.image}"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/article_tv_article_author_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            tools:text="helloithisis author"
+                            android:text="@{viewModel.articleToShown.author.username}"/>
+
+                        <TextView
+                            android:id="@+id/article_tv_article_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="20 January, 2021"
+                            android:text="@{viewModel.articleToShown.createdAt}"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/article_tv_article_body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    android:text="@{viewModel.articleToShown.body}" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+</layout>

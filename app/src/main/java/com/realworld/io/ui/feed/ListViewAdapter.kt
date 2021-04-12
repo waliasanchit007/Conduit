@@ -2,48 +2,64 @@ package com.realworld.io.ui.feed
 
 import android.net.Uri
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.realworld.api.models.objects.Article
-import com.realworld.io.R
-import com.realworld.io.databinding.FragmentGlobalFeedBinding
 import com.realworld.io.databinding.ListItemViewBinding
 
-class ListViewAdapter() : RecyclerView.Adapter<ListViewAdapter.ViewHolder>() {
-    var articles = listOf<Article>()
-    set(value) {
-        field = value
-        notifyDataSetChanged()
-    }
+class ListViewAdapter(val clickListener: ArticleListener) : androidx.recyclerview.widget.ListAdapter<Article, ListViewAdapter.ViewHolder>(DiffCallback()) {
 
-    class ViewHolder(val view:View) : RecyclerView.ViewHolder(view) {
-        val tvAuthor = view.findViewById<TextView>(R.id.tv_author_name)
-        val tv_body = view.findViewById<TextView>(R.id.tv_body)
-        val tv_title = view.findViewById<TextView>(R.id.tv_title)
-        val tv_date = view.findViewById<TextView>(R.id.tv_date)
-        val iv_profile_img = view.findViewById<ImageView>(R.id.iv_image)
-    }
+    class ViewHolder(val binding: ListItemViewBinding) : RecyclerView.ViewHolder(binding.root) {
 
-    override fun getItemCount(): Int {
-        return articles.size
+        fun bind(article: Article, clickListener: ArticleListener){
+            binding.tvAuthorName.text = article.author.username
+            binding.tvBody.text = article.body
+            binding.tvTitle.text = article.title
+            binding.tvDate.text = article.createdAt
+            binding.article = article
+            binding.clickListener = clickListener
+            binding.executePendingBindings()
+
+
+        }
+
+        companion object {
+            fun from(parent: ViewGroup): ViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = ListItemViewBinding.inflate(layoutInflater,parent,false)
+                return ViewHolder(binding)
+            }
+        }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val article = articles[position]
+        val article = getItem(position)
 
-        holder.tvAuthor.text = article.author.username
-        holder.tv_body.text = article.body
-        holder.tv_title.text = article.title
-        holder.tv_date.text = article.createdAt
-        holder.iv_profile_img.setImageURI(Uri.parse(article.author.image))
+        holder.bind(article, clickListener)
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-        val view = layoutInflater.inflate(R.layout.list_item_view,parent,false)
-        return ViewHolder(view)
+        return ViewHolder.from(parent)
     }
+
+
+}
+
+
+class DiffCallback: DiffUtil.ItemCallback<Article>(){
+    override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
+        return oldItem == newItem
+    }
+
+    override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
+        return oldItem == newItem
+    }
+
+}
+
+class ArticleListener(val clickListener: (articleSlug:String?) -> Unit) {
+
+    fun onClick(article: Article?) = clickListener(article?.slug)
 }

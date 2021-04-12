@@ -6,8 +6,8 @@
             type="com.realworld.api.models.objects.Article" />
 
         <variable
-            name="author"
-            type="com.realworld.api.models.objects.Profile" />
+            name="clickListener"
+            type="com.realworld.io.ui.feed.ArticleListener" />
     </data>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -15,6 +15,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@drawable/border_list_view"
+    android:onClick="@{()-> clickListener.onClick(article)}"
     android:padding="15dp">
 
     <LinearLayout
@@ -24,11 +25,13 @@
         android:padding="5dp">
 
         <ImageView
+
             android:id="@+id/iv_image"
             android:layout_width="46dp"
             android:layout_height="match_parent"
             android:padding="2dp"
-            tools:srcCompat="@tools:sample/avatars"/>
+            tools:srcCompat="@tools:sample/avatars"
+            imageUrl="@{article.author.image}"/>
 
         <LinearLayout
             android:layout_width="match_parent"

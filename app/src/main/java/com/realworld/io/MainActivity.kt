@@ -2,6 +2,10 @@ package com.realworld.io
 
 import android.os.Bundle
 import android.view.Menu
+import android.widget.CompoundButton
+import android.widget.RadioGroup
+import android.widget.Switch
+import android.widget.Toast
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
@@ -36,9 +40,10 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_global_feed), drawerLayout)
+                R.id.nav_global_feed, R.id.nav_auth), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

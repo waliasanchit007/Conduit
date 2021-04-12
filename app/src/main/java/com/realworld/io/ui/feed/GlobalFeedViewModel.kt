@@ -27,4 +27,15 @@ class GlobalFeedViewModel : ViewModel() {
            }
         }
     }
+
+    private val _navigateToArticleDetail = MutableLiveData<String?>()
+    val navigateToArticleDetail :LiveData<String?> get() = _navigateToArticleDetail
+
+    fun onArticleClicked(slug:String){
+        _navigateToArticleDetail.value = slug
+    }
+
+    fun onArticleDetailNavigated(){
+        _navigateToArticleDetail.value = null
+    }
 }

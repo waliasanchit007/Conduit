@@ -19,7 +19,7 @@ data class Article(
         @Json(name = "favoritesCount")
     val favoritesCount: Int,
         @Json(name = "slug")
-    val slug: String,
+    val slug: String?,
         @Json(name = "tagList")
     val tagList: List<String>,
         @Json(name = "title")
