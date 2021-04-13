@@ -9,24 +9,22 @@ import com.realworld.api.models.objects.Article
 import com.realworld.io.data.ArticleRepo
 import kotlinx.coroutines.launch
 
-class GlobalFeedViewModel : ViewModel() {
+class MyFeedViewModel  : ViewModel() {
 
 
     private val _article= MutableLiveData<List<Article>>()
-    val article:LiveData<List<Article>> get() = _article
+    val article: LiveData<List<Article>> get() = _article
 
-    fun fetchGlobalFeed(){
+
+    fun fetchMyFeed(){
         viewModelScope.launch {
-           ArticleRepo.getGlobalFeed().body()?.let {
-               _article.value = it.articles
+            _article.value = ArticleRepo.getMyFeed().body()?.articles
 
-               Log.i("article fetch", "${it.articlesCount} articles fetched")
-           }
         }
     }
 
     private val _navigateToArticleDetail = MutableLiveData<String?>()
-    val navigateToArticleDetail :LiveData<String?> get() = _navigateToArticleDetail
+    val navigateToArticleDetail : LiveData<String?> get() = _navigateToArticleDetail
 
     fun onArticleClicked(slug:String){
         _navigateToArticleDetail.value = slug

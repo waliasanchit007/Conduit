@@ -13,7 +13,7 @@ import javax.xml.ws.Response
 interface ConduitApiAuth {
 
     @GET("user")
-    suspend fun getCurrentUser():User
+    suspend fun getCurrentUser():Response<UserResponse>
 
     @PUT("user")
     suspend fun updateUsers(
@@ -36,7 +36,7 @@ interface ConduitApiAuth {
     ): Response<ProfileResponse>
 
     @GET("articles/feed")
-    suspend fun getFeedArticles(): Response<ArticlesResponse>
+    suspend fun getFeedArticles(): retrofit2.Response<ArticlesResponse>
 
     @POST("articles")
     suspend fun createArticle(

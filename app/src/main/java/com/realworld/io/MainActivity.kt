@@ -2,6 +2,7 @@ package com.realworld.io
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.ViewGroup
 import android.widget.CompoundButton
 import android.widget.RadioGroup
 import android.widget.Switch
@@ -17,14 +18,27 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.realworld.api.models.objects.User
+import com.realworld.io.databinding.ActivityMainBinding
+import com.realworld.io.ui.auth.AuthViewModel
 
 class MainActivity : AppCompatActivity() {
+
+    lateinit var viewModel: AuthViewModel
+    lateinit var binding:ActivityMainBinding
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
+
+        viewModel = ViewModelProvider(this).get(AuthViewModel::class.java)
+
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -40,9 +54,26 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.nav_global_feed, R.id.nav_auth), drawerLayout)
+                R.id.nav_global_feed,
+                R.id.nav_auth,
+        R.id.nav_my_feed), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        //observing login
+        viewModel.user.observe({lifecycle}){
+            updateMenu(it)
+            navController.navigateUp()
+        }
+    }
+    private fun updateMenu(user: User?){
+        if (user != null) {
+            binding.navView.menu.clear()
+            binding.navView.inflateMenu(R.menu.activity_main_user_drawer)
+        }else{
+            binding.navView.menu.clear()
+            binding.navView.inflateMenu(R.menu.activity_main_drawer)
+        }
 
     }
 

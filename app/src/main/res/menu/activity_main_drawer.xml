@@ -15,8 +15,8 @@
             android:icon="@drawable/ic_menu_setting"/>
 
     </group>
-    <item
-        android:id="@+id/switch_theme_btn"
-        android:title="Switch"
-        app:actionLayout="@layout/layout_switch"/>
+<!--    <item-->
+<!--        android:id="@+id/switch_theme_btn"-->
+<!--        android:title="Switch"-->
+<!--        app:actionLayout="@layout/layout_switch"/>-->
 </menu>

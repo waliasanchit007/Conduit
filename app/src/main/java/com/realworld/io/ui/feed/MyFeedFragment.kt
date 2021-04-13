@@ -1,7 +1,6 @@
 package com.realworld.io.ui.feed
-import androidx.navigation.NavDirections
+
 import android.os.Bundle
-import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,9 +13,10 @@ import androidx.navigation.fragment.findNavController
 import com.realworld.io.R
 import com.realworld.io.databinding.FragmentGlobalFeedBinding
 
-class GlobalFeedFragment: Fragment() {
+class MyFeedFragment: Fragment() {
 
-    lateinit var viewModel: GlobalFeedViewModel
+    lateinit var viewModel: MyFeedViewModel
+
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -24,13 +24,13 @@ class GlobalFeedFragment: Fragment() {
             inflater, R.layout.fragment_global_feed,container,false
         )
 
-        viewModel = ViewModelProvider(this).get(GlobalFeedViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(MyFeedViewModel::class.java)
         binding.lifecycleOwner = viewLifecycleOwner
-
-        viewModel.fetchGlobalFeed()
+        viewModel.fetchMyFeed()
 
         val adapter = ListViewAdapter(ArticleListener { articleSlug ->
             articleSlug?.let {
+                Toast.makeText(context, "${articleSlug} is clicked", Toast.LENGTH_LONG).show()
                 viewModel.onArticleClicked(articleSlug)
 
             }
@@ -47,7 +47,7 @@ class GlobalFeedFragment: Fragment() {
         viewModel.navigateToArticleDetail.observe(viewLifecycleOwner, Observer {
             it?.let {
                 this.findNavController().navigate(
-                    GlobalFeedFragmentDirections.actionNavGlobalFeedToArticleFragment(it)
+                    MyFeedFragmentDirections.actionNavMyFeedToArticleFragment(it)
                 )
                 viewModel.onArticleDetailNavigated()
 
